@@ -88,6 +88,16 @@
         <pinlocations pattern="spread"/>
       </sub_tile>
     </tile>
+    <tile name="mult_tile" area="40000"> <!--TODO: get a real number or value-->
+      <sub_tile name="mult_tile">
+        <equivalent_sites>
+          <site pb_type="mult_8x4"/>
+        </equivalent_sites>
+        <input name="x" num_pins="32" equivalent="full"/>
+        <input name="y" num_pins="32" equivalent="full"/>
+        <output name="out" num_pins="64" equivalent="none"/>
+      </sub_tile>
+    </tile>
   </tiles>
   <!-- ODIN II specific config ends -->
   <!-- Physical descriptions begin -->
@@ -462,7 +472,28 @@
       <input name="y" num_pins="32"/>
       <output name="out" num_pins="64"/>
       <mode name="physical" disable_packing="true">
-        todo: finish adding pbtype and then tile
+        <pb_type name="mult_8_slice" num_pb="4">
+          <input name="x_cfg" num_pins="8"/>
+          <input name="y_cfg" num_pins="8"/>
+          <output name="out_cfg" num_pins="16"/>
+          <pb_type name="mult_8" num_pb="1" blif_model=".subckt multiply">
+            <input name="x" num_pins="8"/>
+            <input name="y" num_pins="8"/>
+            <output name="out" num_pins="16"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.a" out_port="mult_8.out"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.b" out_port="mult_8.out"/>
+          </pb_type>
+          <interconnect> <!-- connect the multiplier ports to slice ports-->
+            <direct name="x2x" input="mult_8_slice.x_cfg" output="mult_8[1:0].x"/>
+            <direct name="y2y" input="mult_8_slice.y_cfg" output="mult_8[1:0].y"/>
+            <direct name="out2out" input="mult_8[1:0].out" output="mult_8_slice.out_cfg"/>
+          </interconnect>
+        </pb_type>
+        <interconnect> <!--connect slice ports (cfg) to block ports-->
+          <direct name="x2x" input="mult_8x4.x" output="mult_8_slice.x_cfg"/>
+          <direct name="y2y" input="mult_8x4.y" output="mult_8_slice.y_cfg"/>
+          <direct name="out2out" input="mult_8_slice.out_cfg" output="mult_8x4.out"/>
+        </interconnect>
       </mode>
       <mode name="four_mult_8">
         <pb_type name="mult_8_slice" num_pb="4">

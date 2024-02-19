@@ -203,7 +203,7 @@
         <port type="input" prefix="outpad" lib_name="A" size="1"/>
         <port type="output" prefix="inpad" lib_name="Y" size="1"/>
     </circuit_model>
-    <circuit_model type="hard_logic" name="boothr2alu" prefix="boothr2alu" verilog_netlist="/home/njf/temp/OF_MV/BitSerial-v1/MV-Engine/lib/synthesized_boothr2.v">
+    <!-- <circuit_model type="hard_logic" name="boothr2alu" prefix="boothr2alu" verilog_netlist="/home/njf/temp/OF_MV/BitSerial-v1/MV-Engine/lib/synthesized_boothr2.v">
         <design_technology type="cmos"/>
         <input_buffer exist="true" circuit_model_name="INVTX1"/>
         <output_buffer exist="true" circuit_model_name="INVTX1"/>
@@ -217,7 +217,24 @@
         <port type="input" prefix="dbg_clk_enable" size="1"/>
         <port type="output" prefix="dbg_cb_reg" size="1"/>
         <port type="output" prefix="dbg_cb" size="1"/>
+    </circuit_model> -->
+    <circuit_model type="hard_logic" name="multiplier_8bit" verilog_netlist="${OPENFPGA_PATH}/temp/yosys_scripts/mult8_synth.v">
+        <design_technology type="cmos"/>
+        <input_buffer exist="false"/>
+        <output_buffer exist="false"/>
+        <port type="input" prefix="x" size="8"/>
+        <port type="input" prefix="y" size="8"/>
+        <port type="output" prefix="out" size="16"/>
     </circuit_model>
+    <circuit_model type="hard_logic" name="mult_32x32" verilog_netlist="${OPENFPGA_PATH}/temp/yosys_scripts/mult_32x32_synth.v">
+        <design_technology type="cmos"/>
+        <input_buffer exist="false"/>
+        <output_buffer exist="false"/>
+        <port type="input" prefix="x" size="32"/>
+        <port type="input" prefix="y" size="32"/>
+        <port type="output" prefix="out" size="64"/>
+    </circuit_model>
+
 </circuit_library>
 <configuration_protocol>
     <organization type="scan_chain" circuit_model_name="DFFR"/>
@@ -262,6 +279,16 @@
     <pb_type name="clb.fle[n1_lut6].ble6.ff" physical_pb_type_name="clb.fle[physical].fabric.ff" physical_pb_type_index_factor="2" physical_pb_type_index_offset="0"/>
     <!-- End physical pb_type binding in complex block IO -->
     </pb_type_annotations>
+
+    <!-- For multiplier-->
+    <!-- Top level bind -->
+    <pb_type name="mult_8x4" physical_mode_name="physical" idle_mode_name="physical"/>
+    <pb_type name="mult_8x4[four_mult_8].mult_8_slice.mult_8" physical_pb_type_name="mult_8x4[physical].mult_8_slice.mult_8" mode_bits="00" physical_pb_type_index_factor="0">
+        <port name="x" physical_mode_port="x[0:7]" physical_mode_port_rotate_offset="8"/>
+        <port name="y" physical_mode_port="y[0:7]" physical_mode_port_rotate_offset="8"/>
+        <port name="out" physical_mode_port="out[0:7]" physical_mode_port_rotate_offset="16"/>
+    </pb_type>
+
 </openfpga_architecture>
         
     
