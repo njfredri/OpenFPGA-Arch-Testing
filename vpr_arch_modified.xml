@@ -93,9 +93,11 @@
         <equivalent_sites>
           <site pb_type="mult_8x4"/>
         </equivalent_sites>
-        <input name="x" num_pins="32" equivalent="full"/>
-        <input name="y" num_pins="32" equivalent="full"/>
+        <input name="x" num_pins="32" equivalent="none"/>
+        <input name="y" num_pins="32" equivalent="none"/>
         <output name="out" num_pins="64" equivalent="none"/>
+        <fc in_type="frac" in_val="0.15" out_type="frac" out_val="0.15"/>
+
       </sub_tile>
     </tile>
   </tiles>
@@ -472,20 +474,20 @@
       <input name="y" num_pins="32"/>
       <output name="out" num_pins="64"/>
       <mode name="physical" disable_packing="true">
-        <pb_type name="mult_8_slice" num_pb="4">
-          <input name="x_cfg" num_pins="8"/>
-          <input name="y_cfg" num_pins="8"/>
+        <pb_type name="mult_8_slice" num_pb="4"> <!--Changed from 4 slices to 4 mult_8-->
+          <input name="x_cfg" num_pins="32"/>
+          <input name="y_cfg" num_pins="32"/>
           <output name="out_cfg" num_pins="16"/>
           <pb_type name="mult_8" num_pb="1" blif_model=".subckt multiply">
             <input name="x" num_pins="8"/>
             <input name="y" num_pins="8"/>
             <output name="out" num_pins="16"/>
-            <delay_constant max="1.667e-9" in_port="mult_8_slice.a" out_port="mult_8.out"/>
-            <delay_constant max="1.667e-9" in_port="mult_8_slice.b" out_port="mult_8.out"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.x" out_port="mult_8.out"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.y" out_port="mult_8.out"/>
           </pb_type>
           <interconnect> <!-- connect the multiplier ports to slice ports-->
-            <direct name="x2x" input="mult_8_slice.x_cfg" output="mult_8[1:0].x"/>
-            <direct name="y2y" input="mult_8_slice.y_cfg" output="mult_8[1:0].y"/>
+            <direct name="x2x" input="mult_8_slice.x_cfg" output="mult_8.x"/>
+            <direct name="y2y" input="mult_8_slice.y_cfg" output="mult_8.y"/>
             <direct name="out2out" input="mult_8[1:0].out" output="mult_8_slice.out_cfg"/>
           </interconnect>
         </pb_type>
@@ -504,12 +506,12 @@
             <input name="x" num_pins="8"/>
             <input name="y" num_pins="8"/>
             <output name="out" num_pins="16"/>
-            <delay_constant max="1.667e-9" in_port="mult_8_slice.a" out_port="mult_8.out"/>
-            <delay_constant max="1.667e-9" in_port="mult_8_slice.b" out_port="mult_8.out"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.x" out_port="mult_8.out"/>
+            <delay_constant max="1.667e-9" in_port="mult_8_slice.y" out_port="mult_8.out"/>
           </pb_type>
           <interconnect> <!-- connect the multiplier ports to slice ports-->
-            <direct name="x2x" input="mult_8_slice.x_cfg" output="mult_8[1:0].x"/>
-            <direct name="y2y" input="mult_8_slice.y_cfg" output="mult_8[1:0].y"/>
+            <direct name="x2x" input="mult_8_slice.x_cfg" output="mult_8.x"/>
+            <direct name="y2y" input="mult_8_slice.y_cfg" output="mult_8.y"/>
             <direct name="out2out" input="mult_8[1:0].out" output="mult_8_slice.out_cfg"/>
           </interconnect>
         </pb_type>
@@ -519,8 +521,9 @@
           <direct name="out2out" input="mult_8_slice.out_cfg" output="mult_8x4.out"/>
         </interconnect>
       </mode>
-      <fc_in type="frac">0.15</fc_in> <!-- I genuinely have no idea what these mean and it doesn't really explain them anywhere-->
-      <fc_out type="frac">0.10</fc_out>
+      <!-- I genuinely have no idea what these mean and it doesn't really explain them anywhere -->
+      <!-- <fc_in type="frac">0.15</fc_in> 
+      <fc_out type="frac">0.15</fc_out> -->
     </pb_type>
   </complexblocklist>
 </architecture>
