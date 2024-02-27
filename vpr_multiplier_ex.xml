@@ -88,13 +88,20 @@
     <!-- ODIN II specific config ends -->
     <!-- Physical descriptions begin -->
     <layout tileable="true">
-      <auto_layout aspect_ratio="1.0">
-        <!--Perimeter of 'io' blocks with 'EMPTY' blocks at corners-->
+      <!-- <auto_layout aspect_ratio="1.0">
+        Perimeter of 'io' blocks with 'EMPTY' blocks at corners
         <perimeter type="io" priority="100"/>
         <corners type="EMPTY" priority="101"/>
-        <!--Fill with 'clb'-->
         <fill type="clb" priority="10"/>
-      </auto_layout>
+        <col type="mult_8x8" startx="1" starty="1" repeatx="2" priority="20"/>
+      </auto_layout> 
+    -->
+      <fixed_layout name="square" width="10" height="10">
+        <single type="mult_8" x="1" y="1" priority="25"/>
+        <perimeter type="io" priority="100"/>
+        <corners type="EMPTY" priority="101"/>
+        <fill type="clb" priority="10"/>
+      </fixed_layout>
     </layout>
     <device>
       <!-- VB & JL: Using Ian Kuon's transistor sizing and drive strength data for routing, at 40 nm. Ian used BPTM 
