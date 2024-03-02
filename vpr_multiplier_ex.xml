@@ -41,6 +41,9 @@
               <port name="inpad"/>
             </output_ports>
           </model>
+          <model name="picaso">
+            
+          </model>
     </models>
     <tiles>
       <tile name="io" area="0">

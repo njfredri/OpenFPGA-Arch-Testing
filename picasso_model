@@ -1,0 +1,51 @@
+<model name="picasso>
+	<input_ports>
+		<port name="addrA"/>
+		<port name="addrB"/>
+		<port name="aluConf"/>
+		<port name="aluConfLoad"/>
+		<port name="aluEn"/>
+		<port name="aluMbitLoad"/>
+		<port name="aluMbitReset"/>
+		<port name="aluReset"/>
+		<port name="clk"/>
+		<port name="dbgclkenable"/>
+		<port name="eastIn"/>
+		<port name="extDataIn"/>
+		<port name="extDataSave"/>
+		<port name="netCaptureEn"/>
+		<port name="netConfLoad"/>
+		<port name="netLevel"/>
+		<port name="opmuxConf"/>
+		<port name="opmuxConfLoad"/>
+		<port name="opmuxEn"/>
+		<port name="ptrIncr"/>
+		<port name="ptrLoad"/>
+		<port name="saveAluOut"/>
+		<port name="selCol"/>
+		<port name="selEn"/>
+		<port name="selMode"/>
+		<port name="selOp"/>
+		<port name="selRow"/>
+	</input_ports>
+	<output_ports>
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+		<port name="output" />
+	</output_ports>
+</model>

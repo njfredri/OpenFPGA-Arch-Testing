@@ -1,0 +1,260 @@
+wire _00_;
+  wire _01_;
+  (* src = "../../lib/picaso_ff.v:168.35-168.40" *)
+  input [9:0] addrA;
+  wire [9:0] addrA;
+  (* src = "../../lib/picaso_ff.v:169.35-169.40" *)
+  input [9:0] addrB;
+  wire [9:0] addrB;
+  (* src = "../../lib/picaso_ff.v:152.33-152.40" *)
+  input [2:0] aluConf;
+  wire [2:0] aluConf;
+  (* src = "../../lib/picaso_ff.v:153.33-153.44" *)
+  input aluConfLoad;
+  wire aluConfLoad;
+  (* src = "../../lib/picaso_ff.v:154.33-154.38" *)
+  input aluEn;
+  wire aluEn;
+  (* src = "../../lib/picaso_ff.v:272.32-272.46" *)
+  wire aluInst_ce_alu;
+  (* src = "../../lib/picaso_ff.v:276.32-276.48" *)
+  wire aluInst_loadMbit;
+  (* src = "../../lib/picaso_ff.v:273.32-273.48" *)
+  wire [2:0] aluInst_opConfig;
+  (* src = "../../lib/picaso_ff.v:274.32-274.46" *)
+  wire aluInst_opLoad;
+  (* src = "../../lib/picaso_ff.v:277.32-277.51" *)
+  wire [15:0] aluInst_out_streams;
+  (* src = "../../lib/picaso_ff.v:269.32-269.45" *)
+  wire aluInst_reset;
+  (* src = "../../lib/picaso_ff.v:275.32-275.49" *)
+  wire aluInst_resetMbit;
+  (* src = "../../lib/picaso_ff.v:270.32-270.49" *)
+  wire [15:0] aluInst_x_streams;
+  (* src = "../../lib/picaso_ff.v:271.32-271.49" *)
+  wire [15:0] aluInst_y_streams;
+  (* src = "../../lib/picaso_ff.v:157.33-157.44" *)
+  input aluMbitLoad;
+  wire aluMbitLoad;
+  (* src = "../../lib/picaso_ff.v:156.33-156.45" *)
+  input aluMbitReset;
+  wire aluMbitReset;
+  (* src = "../../lib/picaso_ff.v:155.33-155.41" *)
+  input aluReset;
+  wire aluReset;
+  (* src = "../../lib/picaso_ff.v:143.16-143.19" *)
+  input clk;
+  wire clk;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:279.58-279.77" *)
+  (* unused_bits = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15" *)
+  wire [15:0] dbg_aluInst_out_reg;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:280.58-280.80" *)
+  (* unused_bits = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15" *)
+  wire [15:0] dbg_aluInst_out_reg_in;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:189.99-189.118" *)
+  output [15:0] dbg_alu_out_streams;
+  wire [15:0] dbg_alu_out_streams;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:189.61-189.78" *)
+  output [15:0] dbg_alu_x_streams;
+  wire [15:0] dbg_alu_x_streams;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:189.80-189.97" *)
+  output [15:0] dbg_alu_y_streams;
+  wire [15:0] dbg_alu_y_streams;
+  (* src = "../../lib/picaso_ff.v:183.61-183.75" *)
+  input dbg_clk_enable;
+  wire dbg_clk_enable;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:190.78-190.96" *)
+  output dbg_net_captureOut;
+  wire dbg_net_captureOut;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:190.61-190.76" *)
+  output dbg_net_localIn;
+  wire dbg_net_localIn;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:316.58-316.81" *)
+  (* unused_bits = "0" *)
+  wire dbg_netnode_capture_reg;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:315.58-315.79" *)
+  (* unused_bits = "0 1 2" *)
+  wire [2:0] dbg_netnode_level_reg;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:317.58-317.78" *)
+  (* unused_bits = "0" *)
+  wire dbg_netnode_txSelect;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:239.59-239.77" *)
+  (* unused_bits = "0 1 2" *)
+  wire [2:0] dbg_opMux_conf_reg;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:240.59-240.80" *)
+  (* unused_bits = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15" *)
+  wire [15:0] dbg_opMux_opnX_reg_in;
+  (* dont_touch = "yes" *)
+  (* src = "../../lib/picaso_ff.v:241.59-241.80" *)
+  (* unused_bits = "0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15" *)
+  wire [15:0] dbg_opMux_opnY_reg_in;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:188.61-188.75" *)
+  output [15:0] dbg_opmux_opnX;
+  wire [15:0] dbg_opmux_opnX;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:188.77-188.91" *)
+  output [15:0] dbg_opmux_opnY;
+  wire [15:0] dbg_opmux_opnY;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:187.61-187.73" *)
+  output [9:0] dbg_rf_addra;
+  wire [9:0] dbg_rf_addra;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:187.75-187.87" *)
+  output [9:0] dbg_rf_addrb;
+  wire [9:0] dbg_rf_addrb;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:185.61-185.71" *)
+  output [15:0] dbg_rf_dia;
+  wire [15:0] dbg_rf_dia;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:185.73-185.83" *)
+  output [15:0] dbg_rf_dib;
+  wire [15:0] dbg_rf_dib;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:186.61-186.71" *)
+  output [15:0] dbg_rf_doa;
+  wire [15:0] dbg_rf_doa;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:186.73-186.83" *)
+  output [15:0] dbg_rf_dob;
+  wire [15:0] dbg_rf_dob;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:184.61-184.71" *)
+  output dbg_rf_wea;
+  wire dbg_rf_wea;
+  (* mark_debug = "yes" *)
+  (* src = "../../lib/picaso_ff.v:184.73-184.83" *)
+  output dbg_rf_web;
+  wire dbg_rf_web;
+  (* src = "../../lib/picaso_ff.v:149.33-149.39" *)
+  input eastIn;
+  wire eastIn;
+  (* src = "../../lib/picaso_ff.v:164.35-164.44" *)
+  input [15:0] extDataIn;
+  wire [15:0] extDataIn;
+  (* src = "../../lib/picaso_ff.v:165.35-165.45" *)
+  output [15:0] extDataOut;
+  wire [15:0] extDataOut;
+  (* src = "../../lib/picaso_ff.v:163.35-163.46" *)
+  input extDataSave;
+  wire extDataSave;
+  (* src = "../../lib/picaso_ff.v:147.33-147.45" *)
+  input netCaptureEn;
+  wire netCaptureEn;
+  (* src = "../../lib/picaso_ff.v:146.33-146.44" *)
+  input netConfLoad;
+  wire netConfLoad;
+  (* src = "../../lib/picaso_ff.v:145.33-145.41" *)
+  input [2:0] netLevel;
+  wire [2:0] netLevel;
+  (* src = "../../lib/picaso_ff.v:312.32-312.49" *)
+  wire netnode_captureEn;
+  (* src = "../../lib/picaso_ff.v:307.32-307.50" *)
+  wire netnode_captureOut;
+  (* src = "../../lib/picaso_ff.v:311.32-311.48" *)
+  wire netnode_confLoad;
+  (* src = "../../lib/picaso_ff.v:308.32-308.46" *)
+  wire netnode_eastIn;
+  (* src = "../../lib/picaso_ff.v:313.32-313.50" *)
+  wire netnode_isReceiver;
+  (* src = "../../lib/picaso_ff.v:310.32-310.45" *)
+  wire [2:0] netnode_level;
+  (* src = "../../lib/picaso_ff.v:306.32-306.47" *)
+  wire netnode_localIn;
+  (* src = "../../lib/picaso_ff.v:309.32-309.47" *)
+  wire netnode_westOut;
+  (* src = "../../lib/picaso_ff.v:235.33-235.44" *)
+  wire opMux_ceOut;
+  (* src = "../../lib/picaso_ff.v:234.33-234.47" *)
+  wire opMux_confLoad;
+  (* src = "../../lib/picaso_ff.v:233.33-233.46" *)
+  wire [2:0] opMux_confSig;
+  (* src = "../../lib/picaso_ff.v:232.33-232.49" *)
+  wire opMux_net_stream;
+  (* src = "../../lib/picaso_ff.v:236.33-236.43" *)
+  wire [15:0] opMux_opnX;
+  (* src = "../../lib/picaso_ff.v:237.33-237.43" *)
+  wire [15:0] opMux_opnY;
+  (* src = "../../lib/picaso_ff.v:230.33-230.47" *)
+  wire [15:0] opMux_rf_portA;
+  (* src = "../../lib/picaso_ff.v:231.33-231.47" *)
+  wire [15:0] opMux_rf_portB;
+  (* src = "../../lib/picaso_ff.v:160.33-160.42" *)
+  input [2:0] opmuxConf;
+  wire [2:0] opmuxConf;
+  (* src = "../../lib/picaso_ff.v:159.33-159.46" *)
+  input opmuxConfLoad;
+  wire opmuxConfLoad;
+  (* src = "../../lib/picaso_ff.v:161.33-161.40" *)
+  input opmuxEn;
+  wire opmuxEn;
+  (* src = "../../lib/picaso_ff.v:370.33-370.48" *)
+  wire pointer_countEn;
+  (* src = "../../lib/picaso_ff.v:371.33-371.49" *)
+  wire [9:0] pointer_countOut;
+  (* src = "../../lib/picaso_ff.v:369.33-369.47" *)
+  wire pointer_loadEn;
+  (* src = "../../lib/picaso_ff.v:368.33-368.48" *)
+  wire [9:0] pointer_loadVal;
+  (* src = "../../lib/picaso_ff.v:179.31-179.38" *)
+  input ptrIncr;
+  wire ptrIncr;
+  (* src = "../../lib/picaso_ff.v:178.31-178.38" *)
+  input ptrLoad;
+  wire ptrLoad;
+  (* src = "../../lib/picaso_ff.v:206.36-206.49" *)
+  wire [9:0] regfile_addra;
+  (* src = "../../lib/picaso_ff.v:206.51-206.64" *)
+  wire [9:0] regfile_addrb;
+  (* src = "../../lib/picaso_ff.v:207.36-207.47" *)
+  wire [15:0] regfile_dia;
+  (* src = "../../lib/picaso_ff.v:207.49-207.60" *)
+  wire [15:0] regfile_dib;
+  (* src = "../../lib/picaso_ff.v:208.36-208.47" *)
+  wire [15:0] regfile_doa;
+  (* src = "../../lib/picaso_ff.v:208.49-208.60" *)
+  wire [15:0] regfile_dob;
+  (* src = "../../lib/picaso_ff.v:205.36-205.47" *)
+  wire regfile_wea;
+  (* src = "../../lib/picaso_ff.v:205.49-205.60" *)
+  wire regfile_web;
+  (* src = "../../lib/picaso_ff.v:167.35-167.45" *)
+  input saveAluOut;
+  wire saveAluOut;
+  (* src = "../../lib/picaso_ff.v:176.31-176.40" *)
+  output selActive;
+  wire selActive;
+  (* src = "../../lib/picaso_ff.v:172.31-172.37" *)
+  input [7:0] selCol;
+  wire [7:0] selCol;
+  (* src = "../../lib/picaso_ff.v:174.31-174.36" *)
+  input selEn;
+  wire selEn;
+  (* src = "../../lib/picaso_ff.v:173.31-173.38" *)
+  input [1:0] selMode;
+  wire [1:0] selMode;
+  (* src = "../../lib/picaso_ff.v:175.31-175.36" *)
+  input selOp;
+  wire selOp;
+  (* src = "../../lib/picaso_ff.v:171.31-171.37" *)
+  input [7:0] selRow;
+  wire [7:0] selRow;
+  (* src = "../../lib/picaso_ff.v:346.8-346.23" *)
+  wire selection_state;
+  (* src = "../../lib/picaso_ff.v:150.33-150.40" *)
+  output westOut;
+  wire westOut;

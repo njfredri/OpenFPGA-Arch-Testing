@@ -1,0 +1,39 @@
+input  wire  clk; 
+
+  input  [NET_LEVEL_WIDTH-1:0]  netLevel;
+  input                         netConfLoad;
+  input                         netCaptureEn;
+
+  input  [NET_STREAM_WIDTH-1:0] eastIn;
+  output [NET_STREAM_WIDTH-1:0] westOut;
+
+  input  [ALU_OP_WIDTH-1:0]     aluConf;
+  input                         aluConfLoad;
+  input                         aluEn;
+  input                         aluReset;
+  input                         aluMbitReset;
+  input                         aluMbitLoad;
+
+  input                         opmuxConfLoad;
+  input  [OPMUX_CONF_WIDTH-1:0] opmuxConf;
+  input                         opmuxEn;
+
+  input                           extDataSave;
+  input  [REGFILE_RAM_WIDTH-1:0]  extDataIn; 
+  output [REGFILE_RAM_WIDTH-1:0]  extDataOut;
+
+  input                           saveAluOut;
+  input  [REGFILE_ADDR_WIDTH-1:0] addrA;    
+  input  [REGFILE_ADDR_WIDTH-1:0] addrB;   
+
+  input  [ID_WIDTH-1:0]       selRow;
+  input  [ID_WIDTH-1:0]       selCol;
+  input  [SEL_MODE_WIDTH-1:0] selMode;
+  input                       selEn;
+  input                       selOp;
+  output                      selActive;
+
+  input                       ptrLoad;
+  input                       ptrIncr;
+
+  
