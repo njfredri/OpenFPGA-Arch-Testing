@@ -45,10 +45,10 @@ def get_width(line) -> str:
                 return(str(dif))
     return '1'
 
-def generate_picasso_model():
+def generate_picaso_model():
     fin = open("synth_picasso.reference", "r")
-    fout = open("picasso_model.xml", "w+")
-    fout.write('<model name="picasso">\n')
+    fout = open("picaso_model.xml", "w+")
+    fout.write('<model name="picaso">\n')
     lines = fin.readlines()
     fout.write('\t<input_ports>\n')
     for line in lines:
@@ -86,9 +86,9 @@ def generate_picasso_model():
     fin.close()
     fout.close()
 
-def generate_pbtype_top_ports(lines):
+def generate_pbtype_top_ports(lines, line_begin='\t'):
     ports = []
-    ports.append('\t<clock name="clk" num_pins="1"/>\n')
+    ports.append(line_begin + '<clock name="clk" num_pins="1"/>\n')
     for line in lines:
         if "input" in line and (not shouldISkip_bcuzClk(line)):
             port_string =''
@@ -101,7 +101,7 @@ def generate_pbtype_top_ports(lines):
             printdbg(words_filtered)
             num_pins = get_width(words)
             name = (get_name(words_filtered))
-            port_string += '\t<input name="'
+            port_string += line_begin+'<input name="'
             port_string += name
             port_string += '" num_pins="'
             port_string += num_pins
@@ -119,7 +119,7 @@ def generate_pbtype_top_ports(lines):
             printdbg(words)
             printdbg(words_filtered)
             name = (get_name(words_filtered))
-            port_string += '\t<output name="'
+            port_string += line_begin+'<output name="'
             port_string += name
             port_string += '" num_pins="'
             port_string += num_pins
@@ -129,30 +129,81 @@ def generate_pbtype_top_ports(lines):
             ports.append(port_string)
     return ports
 
+def generate_slice_ports(lines, line_begin='\t\t\t\t'):
+    ports = []
+    ports.append('\t<clock name="clk" num_pins="1"/>\n')
+    for line in lines:
+        if "input" in line and (not shouldISkip_bcuzClk(line)):
+            port_string =''
+            words = line.split(' ')
+            words_filtered = []
+            for word in words:
+                if word!='' and word!=' ':
+                    words_filtered.append(word)
+            printdbg(words)
+            printdbg(words_filtered)
+            num_pins = get_width(words)
+            name = (get_name(words_filtered))
+            port_string += line_begin+'<input name="'
+            port_string += name+'_cfg'
+            port_string += '" num_pins="'
+            port_string += num_pins
+            port_string += '\"/>\n'
+            printdbg(name)
+            printdbg(port_string)
+            ports.append(port_string)
+        elif "output" in line and (not shouldISkip_bcuzClk(line)):
+            port_string =''
+            words = line.split(' ')
+            words_filtered = []
+            for word in words:
+                if word!='' and word!=' ':
+                    words_filtered.append(word)
+            printdbg(words)
+            printdbg(words_filtered)
+            name = (get_name(words_filtered))
+            port_string += line_begin+'<output name="'
+            port_string += name+'_cfg'
+            port_string += '" num_pins="'
+            port_string += num_pins
+            port_string += '\"/>\n'
+            printdbg(name)
+            printdbg(port_string)
+            ports.append(port_string)
+    return ports
 
-def generate_picasso_pb():
+def generate_picaso_pb():
     fin = open("synth_picasso.reference", "r")
-    fout = open("picasso_pb_type.xml", "w+")
-    fout.write('<pb_type name="picasso">\n')
+    fout = open("picaso_pb_type.xml", "w+")
+    fout.write('<pb_type name="picaso">\n')
     lines = fin.readlines()
     ports = generate_pbtype_top_ports(lines)
     for port in ports:
         fout.write(port)
-    write_physical_mode(fout)
+    write_physical_mode(fout, lines)
     fout.write('</pb_type>')
     fout.close()
     fin.close()
 
-def write_physical_mode(fout):
+def write_physical_mode(fout, lines):
     current_indent = '\t\t'
-    fout.write(current_indent+ '<mode name="physical">\n')
+    fout.write(current_indent + '<mode name="physical">\n')
     
-
-    #end
+    current_indent = '\t\t\t'
+    fout.write(current_indent + '<pb_type name="picaso_slice" num_pb="1">\n')
+    
+    current_indent = '\t\t\t\t'
+    slice_ports = generate_pbtype_top_ports(lines, line_begin='\t\t\t\t') #generate_slice_ports(lines)
+    for port in slice_ports:
+        fout.write(port)
+    
+    current_indent = '\t\t\t'
+    fout.write(current_indent + '</pb_type>\n')
+    current_indent = '\t\t'
     fout.write(current_indent + '</mode>\n')
 
-generate_picasso_model()
+generate_picaso_model()
 
 printdbg(get_width(['thie', 'tga', '[5:2]', '', 'end;\n']))
 
-generate_picasso_pb()
+generate_picaso_pb()

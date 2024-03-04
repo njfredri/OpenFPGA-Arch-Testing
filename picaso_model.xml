@@ -1,4 +1,4 @@
-<model name="picasso">
+<model name="picaso">
 	<input_ports>
 		<port name="addrA"/>
 		<port name="addrB"/>
