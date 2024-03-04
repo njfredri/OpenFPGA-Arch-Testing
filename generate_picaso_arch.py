@@ -18,7 +18,7 @@ def get_name(line) -> str:
     if isinstance(line, str):
         temp_line = line.split(' ')
     for token in temp_line:
-        if token=='input' or token=='output':
+        if token=='input' or token=='output' or token=='wire':
             continue
         elif token=='':
             continue
@@ -41,17 +41,23 @@ def extract_ports(lines):
     for line in lines:
         if 'clk' in line or 'clock' in line:
             name = get_name(line)
+            if(name in portnames):
+                continue
             portnames.append(name)
             direction.append('clock')
             widths.append(get_width(line))
         elif 'input' in line:
             name = get_name(line)
+            if(name in portnames):
+                continue
             print('returned name is ' + name)
             portnames.append(name)
             direction.append('input')
             widths.append(get_width(line))
         elif 'output' in line:
             name = get_name(line)
+            if(name in portnames):
+                continue
             portnames.append(name)
             direction.append('output')
             widths.append(get_width(line))
@@ -204,14 +210,33 @@ def generate_slice_ports(lines, line_begin='\t\t\t\t'):
 def generate_ports_string(ports_info, line_begin='\t'):
     complete_string = ''
     for port in ports_info:
-        print(port)
+        # print(port)
         complete_string += (line_begin + '<' + port[1] + ' name="' + port[0] + '" num_pins="' + port[2] + '"/>\n')
     return complete_string
+
+def generate_interconnect_string(ports_info, top: str, bot: str, line_begin = '\t'): #assuming ports are the same top and bottom
+    constr = line_begin + '<interconnect>\n'
+    newlb = line_begin + '\t'
+    for port in ports_info:
+        if port[1] == 'output':
+            constr += newlb
+            constr += '<direct name="' + port[0] + '2' + port[0] + '" '
+            constr += 'input="' + bot + '.' + port[0] + '" '
+            constr += 'output="' + top + '.' + port[0] + '"/>\n'
+            continue
+        else: #input and clock should be treated about the same
+            constr += newlb
+            constr += '<direct name="' + port[0] + '2' + port[0] + '" '
+            constr += 'input="' + top + '.' + port[0] + '" '
+            constr += 'output="' + bot + '.' + port[0] + '"/>\n'
+            continue
+    constr += line_begin + '</interconnect>\n'
+    return constr
 
 def generate_picaso_pb():
     fin = open("synth_picasso.reference", "r")
     fout = open("picaso_pb_type.xml", "w+")
-    fout.write('<pb_type name="picaso">\n')
+    fout.write('<pb_type name="picaso_block">\n')
     lines = fin.readlines()
     ports_info = extract_ports(lines)
     ports_string = generate_ports_string(ports_info, line_begin='\t')
@@ -227,21 +252,22 @@ def write_physical_mode(fout, ports):
     fout.write(current_indent + '<mode name="physical">\n')
     
     current_indent = '\t\t\t'
-    fout.write(current_indent + '<pb_type name="picaso_slice" num_pb="1">\n')
+    fout.write(current_indent + '<pb_type name="picaso_slice" blif_model=".subckt picaso" num_pb="1">\n')
     
     current_indent = '\t\t\t\t'
-    slice_ports_str = generate_ports_string(ports, '\t\t\t')
+    slice_ports_str = generate_ports_string(ports, current_indent)
     fout.write(slice_ports_str)
-    
     current_indent = '\t\t\t'
     fout.write(current_indent + '</pb_type>\n')
+
+    interconnect_str = generate_interconnect_string(ports, 'picaso_block', 'picaso_slice', line_begin=current_indent)
+    fout.write(interconnect_str)
+    
+
     current_indent = '\t\t'
     fout.write(current_indent + '</mode>\n')
 
-def write_base_pb_type(fout, lines):
-    current_indent='\t\t\t\t'
-    
-
-
+DEBUG=False
 generate_picaso_model()
+DEBUG=True
 generate_picaso_pb()

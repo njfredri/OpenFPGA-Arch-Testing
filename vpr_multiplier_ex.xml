@@ -42,7 +42,53 @@
             </output_ports>
           </model>
           <model name="picaso">
-            
+            <input_ports>
+              <port name="addrA"/>
+              <port name="addrB"/>
+              <port name="aluConf"/>
+              <port name="aluConfLoad"/>
+              <port name="aluEn"/>
+              <port name="aluMbitLoad"/>
+              <port name="aluMbitReset"/>
+              <port name="aluReset"/>
+              <port name="eastIn"/>
+              <port name="extDataIn"/>
+              <port name="extDataSave"/>
+              <port name="netCaptureEn"/>
+              <port name="netConfLoad"/>
+              <port name="netLevel"/>
+              <port name="opmuxConf"/>
+              <port name="opmuxConfLoad"/>
+              <port name="opmuxEn"/>
+              <port name="ptrIncr"/>
+              <port name="ptrLoad"/>
+              <port name="saveAluOut"/>
+              <port name="selCol"/>
+              <port name="selEn"/>
+              <port name="selMode"/>
+              <port name="selOp"/>
+              <port name="selRow"/>
+            </input_ports>
+            <output_ports>
+              <port name="dbgaluoutstreams" />
+              <port name="dbgaluxstreams" />
+              <port name="dbgaluystreams" />
+              <port name="dbgnetcaptureOut" />
+              <port name="dbgnetlocalIn" />
+              <port name="dbgopmuxopnX" />
+              <port name="dbgopmuxopnY" />
+              <port name="dbgrfaddra" />
+              <port name="dbgrfaddrb" />
+              <port name="dbgrfdia" />
+              <port name="dbgrfdib" />
+              <port name="dbgrfdoa" />
+              <port name="dbgrfdob" />
+              <port name="dbgrfwea" />
+              <port name="dbgrfweb" />
+              <port name="extDataOut" />
+              <port name="selActive" />
+              <port name="westOut" />
+            </output_ports>
           </model>
     </models>
     <tiles>
@@ -362,6 +408,151 @@
         <power method="sum-of-children"/>
       </pb_type>
       <!--End of Multiplier-->
+      <!--Define Picaso block-->
+      <pb_type name="picaso_block">
+        <input name="addrA" num_pins="1"/>
+        <input name="addrB" num_pins="1"/>
+        <input name="aluConf" num_pins="1"/>
+        <input name="aluConfLoad" num_pins="1"/>
+        <input name="aluEn" num_pins="1"/>
+        <input name="aluMbitLoad" num_pins="1"/>
+        <input name="aluMbitReset" num_pins="1"/>
+        <input name="aluReset" num_pins="1"/>
+        <clock name="clk" num_pins="1"/>
+        <output name="dbgaluoutstreams" num_pins="1"/>
+        <output name="dbgaluxstreams" num_pins="1"/>
+        <output name="dbgaluystreams" num_pins="1"/>
+        <clock name="dbgclkenable" num_pins="1"/>
+        <output name="dbgnetcaptureOut" num_pins="1"/>
+        <output name="dbgnetlocalIn" num_pins="1"/>
+        <output name="dbgopmuxopnX" num_pins="1"/>
+        <output name="dbgopmuxopnY" num_pins="1"/>
+        <output name="dbgrfaddra" num_pins="1"/>
+        <output name="dbgrfaddrb" num_pins="1"/>
+        <output name="dbgrfdia" num_pins="1"/>
+        <output name="dbgrfdib" num_pins="1"/>
+        <output name="dbgrfdoa" num_pins="1"/>
+        <output name="dbgrfdob" num_pins="1"/>
+        <output name="dbgrfwea" num_pins="1"/>
+        <output name="dbgrfweb" num_pins="1"/>
+        <input name="eastIn" num_pins="1"/>
+        <input name="extDataIn" num_pins="1"/>
+        <output name="extDataOut" num_pins="1"/>
+        <input name="extDataSave" num_pins="1"/>
+        <input name="netCaptureEn" num_pins="1"/>
+        <input name="netConfLoad" num_pins="1"/>
+        <input name="netLevel" num_pins="1"/>
+        <input name="opmuxConf" num_pins="1"/>
+        <input name="opmuxConfLoad" num_pins="1"/>
+        <input name="opmuxEn" num_pins="1"/>
+        <input name="ptrIncr" num_pins="1"/>
+        <input name="ptrLoad" num_pins="1"/>
+        <input name="saveAluOut" num_pins="1"/>
+        <output name="selActive" num_pins="1"/>
+        <input name="selCol" num_pins="1"/>
+        <input name="selEn" num_pins="1"/>
+        <input name="selMode" num_pins="1"/>
+        <input name="selOp" num_pins="1"/>
+        <input name="selRow" num_pins="1"/>
+        <output name="westOut" num_pins="1"/>
+          <mode name="physical">
+            <pb_type name="picaso_slice" blif_model=".subckt picaso" num_pb="1">
+              <input name="addrA" num_pins="1"/>
+              <input name="addrB" num_pins="1"/>
+              <input name="aluConf" num_pins="1"/>
+              <input name="aluConfLoad" num_pins="1"/>
+              <input name="aluEn" num_pins="1"/>
+              <input name="aluMbitLoad" num_pins="1"/>
+              <input name="aluMbitReset" num_pins="1"/>
+              <input name="aluReset" num_pins="1"/>
+              <clock name="clk" num_pins="1"/>
+              <output name="dbgaluoutstreams" num_pins="1"/>
+              <output name="dbgaluxstreams" num_pins="1"/>
+              <output name="dbgaluystreams" num_pins="1"/>
+              <clock name="dbgclkenable" num_pins="1"/>
+              <output name="dbgnetcaptureOut" num_pins="1"/>
+              <output name="dbgnetlocalIn" num_pins="1"/>
+              <output name="dbgopmuxopnX" num_pins="1"/>
+              <output name="dbgopmuxopnY" num_pins="1"/>
+              <output name="dbgrfaddra" num_pins="1"/>
+              <output name="dbgrfaddrb" num_pins="1"/>
+              <output name="dbgrfdia" num_pins="1"/>
+              <output name="dbgrfdib" num_pins="1"/>
+              <output name="dbgrfdoa" num_pins="1"/>
+              <output name="dbgrfdob" num_pins="1"/>
+              <output name="dbgrfwea" num_pins="1"/>
+              <output name="dbgrfweb" num_pins="1"/>
+              <input name="eastIn" num_pins="1"/>
+              <input name="extDataIn" num_pins="1"/>
+              <output name="extDataOut" num_pins="1"/>
+              <input name="extDataSave" num_pins="1"/>
+              <input name="netCaptureEn" num_pins="1"/>
+              <input name="netConfLoad" num_pins="1"/>
+              <input name="netLevel" num_pins="1"/>
+              <input name="opmuxConf" num_pins="1"/>
+              <input name="opmuxConfLoad" num_pins="1"/>
+              <input name="opmuxEn" num_pins="1"/>
+              <input name="ptrIncr" num_pins="1"/>
+              <input name="ptrLoad" num_pins="1"/>
+              <input name="saveAluOut" num_pins="1"/>
+              <output name="selActive" num_pins="1"/>
+              <input name="selCol" num_pins="1"/>
+              <input name="selEn" num_pins="1"/>
+              <input name="selMode" num_pins="1"/>
+              <input name="selOp" num_pins="1"/>
+              <input name="selRow" num_pins="1"/>
+              <output name="westOut" num_pins="1"/>
+            </pb_type>
+            <interconnect>
+              <direct name="addrA2addrA" input="picaso_block.addrA" output="picaso_slice.addrA"/>
+              <direct name="addrB2addrB" input="picaso_block.addrB" output="picaso_slice.addrB"/>
+              <direct name="aluConf2aluConf" input="picaso_block.aluConf" output="picaso_slice.aluConf"/>
+              <direct name="aluConfLoad2aluConfLoad" input="picaso_block.aluConfLoad" output="picaso_slice.aluConfLoad"/>
+              <direct name="aluEn2aluEn" input="picaso_block.aluEn" output="picaso_slice.aluEn"/>
+              <direct name="aluMbitLoad2aluMbitLoad" input="picaso_block.aluMbitLoad" output="picaso_slice.aluMbitLoad"/>
+              <direct name="aluMbitReset2aluMbitReset" input="picaso_block.aluMbitReset" output="picaso_slice.aluMbitReset"/>
+              <direct name="aluReset2aluReset" input="picaso_block.aluReset" output="picaso_slice.aluReset"/>
+              <direct name="clk2clk" input="picaso_block.clk" output="picaso_slice.clk"/>
+              <direct name="dbgaluoutstreams2dbgaluoutstreams" input="picaso_slice.dbgaluoutstreams" output="picaso_block.dbgaluoutstreams"/>
+              <direct name="dbgaluxstreams2dbgaluxstreams" input="picaso_slice.dbgaluxstreams" output="picaso_block.dbgaluxstreams"/>
+              <direct name="dbgaluystreams2dbgaluystreams" input="picaso_slice.dbgaluystreams" output="picaso_block.dbgaluystreams"/>
+              <direct name="dbgclkenable2dbgclkenable" input="picaso_block.dbgclkenable" output="picaso_slice.dbgclkenable"/>
+              <direct name="dbgnetcaptureOut2dbgnetcaptureOut" input="picaso_slice.dbgnetcaptureOut" output="picaso_block.dbgnetcaptureOut"/>
+              <direct name="dbgnetlocalIn2dbgnetlocalIn" input="picaso_slice.dbgnetlocalIn" output="picaso_block.dbgnetlocalIn"/>
+              <direct name="dbgopmuxopnX2dbgopmuxopnX" input="picaso_slice.dbgopmuxopnX" output="picaso_block.dbgopmuxopnX"/>
+              <direct name="dbgopmuxopnY2dbgopmuxopnY" input="picaso_slice.dbgopmuxopnY" output="picaso_block.dbgopmuxopnY"/>
+              <direct name="dbgrfaddra2dbgrfaddra" input="picaso_slice.dbgrfaddra" output="picaso_block.dbgrfaddra"/>
+              <direct name="dbgrfaddrb2dbgrfaddrb" input="picaso_slice.dbgrfaddrb" output="picaso_block.dbgrfaddrb"/>
+              <direct name="dbgrfdia2dbgrfdia" input="picaso_slice.dbgrfdia" output="picaso_block.dbgrfdia"/>
+              <direct name="dbgrfdib2dbgrfdib" input="picaso_slice.dbgrfdib" output="picaso_block.dbgrfdib"/>
+              <direct name="dbgrfdoa2dbgrfdoa" input="picaso_slice.dbgrfdoa" output="picaso_block.dbgrfdoa"/>
+              <direct name="dbgrfdob2dbgrfdob" input="picaso_slice.dbgrfdob" output="picaso_block.dbgrfdob"/>
+              <direct name="dbgrfwea2dbgrfwea" input="picaso_slice.dbgrfwea" output="picaso_block.dbgrfwea"/>
+              <direct name="dbgrfweb2dbgrfweb" input="picaso_slice.dbgrfweb" output="picaso_block.dbgrfweb"/>
+              <direct name="eastIn2eastIn" input="picaso_block.eastIn" output="picaso_slice.eastIn"/>
+              <direct name="extDataIn2extDataIn" input="picaso_block.extDataIn" output="picaso_slice.extDataIn"/>
+              <direct name="extDataOut2extDataOut" input="picaso_slice.extDataOut" output="picaso_block.extDataOut"/>
+              <direct name="extDataSave2extDataSave" input="picaso_block.extDataSave" output="picaso_slice.extDataSave"/>
+              <direct name="netCaptureEn2netCaptureEn" input="picaso_block.netCaptureEn" output="picaso_slice.netCaptureEn"/>
+              <direct name="netConfLoad2netConfLoad" input="picaso_block.netConfLoad" output="picaso_slice.netConfLoad"/>
+              <direct name="netLevel2netLevel" input="picaso_block.netLevel" output="picaso_slice.netLevel"/>
+              <direct name="opmuxConf2opmuxConf" input="picaso_block.opmuxConf" output="picaso_slice.opmuxConf"/>
+              <direct name="opmuxConfLoad2opmuxConfLoad" input="picaso_block.opmuxConfLoad" output="picaso_slice.opmuxConfLoad"/>
+              <direct name="opmuxEn2opmuxEn" input="picaso_block.opmuxEn" output="picaso_slice.opmuxEn"/>
+              <direct name="ptrIncr2ptrIncr" input="picaso_block.ptrIncr" output="picaso_slice.ptrIncr"/>
+              <direct name="ptrLoad2ptrLoad" input="picaso_block.ptrLoad" output="picaso_slice.ptrLoad"/>
+              <direct name="saveAluOut2saveAluOut" input="picaso_block.saveAluOut" output="picaso_slice.saveAluOut"/>
+              <direct name="selActive2selActive" input="picaso_slice.selActive" output="picaso_block.selActive"/>
+              <direct name="selCol2selCol" input="picaso_block.selCol" output="picaso_slice.selCol"/>
+              <direct name="selEn2selEn" input="picaso_block.selEn" output="picaso_slice.selEn"/>
+              <direct name="selMode2selMode" input="picaso_block.selMode" output="picaso_slice.selMode"/>
+              <direct name="selOp2selOp" input="picaso_block.selOp" output="picaso_slice.selOp"/>
+              <direct name="selRow2selRow" input="picaso_block.selRow" output="picaso_slice.selRow"/>
+              <direct name="westOut2westOut" input="picaso_slice.westOut" output="picaso_block.westOut"/>
+            </interconnect>
+          </mode>
+      </pb_type>
+      <!--End of Picaso block-->
     </complexblocklist>
     <power>
       <local_interconnect C_wire="2.5e-10"/>
