@@ -1,5 +1,9 @@
+DEBUG = True
+def printdbg(str, end='\n'):
+    if DEBUG:
+        print(str, end=end)
 
-def shouldISkip(line) -> bool:
+def shouldISkip_bcuzClk(line) -> bool:
     if('clk' in line):
         return True
     if('clock' in line):
@@ -19,51 +23,136 @@ def get_name(line) -> str:
             continue
         else:
             valid=token
-            print('valid name is ' + valid)
+            printdbg('valid name is ' + valid)
             break
     filtered_string = ''.join(c for c in valid if (c.isalnum() and c!=';' and c!='\n'))
-    print('filtered valid name is ' + filtered_string)
+    printdbg('filtered valid name is ' + filtered_string)
     return filtered_string
 
-def write_picasso_model():
+def get_width(line) -> str:
+    for word in line:
+        if '[' in word:
+            printdbg(word)
+            justval = ''.join(c for c in word if (c!='[' and c!=']'))
+            printdbg(justval)
+            split = justval.split(':')
+            if(len(split) > 1):
+                printdbg(split)
+                num1 = int(split[0])
+                num2 = int(split[1])
+                dif = abs(num1-num2) + 1
+                printdbg(dif)
+                return(str(dif))
+    return '1'
+
+def generate_picasso_model():
     fin = open("synth_picasso.reference", "r")
     fout = open("picasso_model.xml", "w+")
     fout.write('<model name="picasso">\n')
     lines = fin.readlines()
     fout.write('\t<input_ports>\n')
     for line in lines:
-        if "input" in line and (not shouldISkip(line)):
+        if "input" in line and (not shouldISkip_bcuzClk(line)):
             words = line.split(' ')
             words_filtered = []
             for word in words:
                 if word!='' and word!=' ':
                     words_filtered.append(word)
-            print(words)
-            print(words_filtered)
+            printdbg(words)
+            printdbg(words_filtered)
             name = (get_name(words_filtered))
             fout.write('\t\t<port name="')
             fout.write(name)
             fout.write('\"/>\n')
-            print(name)
+            printdbg(name)
     fout.write('\t</input_ports>\n')
     fout.write('\t<output_ports>\n')
     for line in lines:
-        if "output" in line and (not shouldISkip(line)):
+        if "output" in line and (not shouldISkip_bcuzClk(line)):
             words = line.split(' ')
             words_filtered = []
             for word in words:
                 if word!='' and word!=' ':
                     words_filtered.append(word)
-            print(words)
-            print(words_filtered)
+            printdbg(words)
+            printdbg(words_filtered)
             name = (get_name(words_filtered))
             fout.write('\t\t<port name="')
             fout.write(name)
             fout.write('" />\n')
-            print(name)
+            printdbg(name)
     fout.write('\t</output_ports>\n')
     fout.write('</model>')
     fin.close()
     fout.close()
 
-write_picasso_model()
+def generate_pbtype_top_ports(lines):
+    ports = []
+    ports.append('\t<clock name="clk" num_pins="1"/>\n')
+    for line in lines:
+        if "input" in line and (not shouldISkip_bcuzClk(line)):
+            port_string =''
+            words = line.split(' ')
+            words_filtered = []
+            for word in words:
+                if word!='' and word!=' ':
+                    words_filtered.append(word)
+            printdbg(words)
+            printdbg(words_filtered)
+            num_pins = get_width(words)
+            name = (get_name(words_filtered))
+            port_string += '\t<input name="'
+            port_string += name
+            port_string += '" num_pins="'
+            port_string += num_pins
+            port_string += '\"/>\n'
+            printdbg(name)
+            printdbg(port_string)
+            ports.append(port_string)
+        elif "output" in line and (not shouldISkip_bcuzClk(line)):
+            port_string =''
+            words = line.split(' ')
+            words_filtered = []
+            for word in words:
+                if word!='' and word!=' ':
+                    words_filtered.append(word)
+            printdbg(words)
+            printdbg(words_filtered)
+            name = (get_name(words_filtered))
+            port_string += '\t<output name="'
+            port_string += name
+            port_string += '" num_pins="'
+            port_string += num_pins
+            port_string += '\"/>\n'
+            printdbg(name)
+            printdbg(port_string)
+            ports.append(port_string)
+    return ports
+
+
+def generate_picasso_pb():
+    fin = open("synth_picasso.reference", "r")
+    fout = open("picasso_pb_type.xml", "w+")
+    fout.write('<pb_type name="picasso">\n')
+    lines = fin.readlines()
+    ports = generate_pbtype_top_ports(lines)
+    for port in ports:
+        fout.write(port)
+    write_physical_mode(fout)
+    fout.write('</pb_type>')
+    fout.close()
+    fin.close()
+
+def write_physical_mode(fout):
+    current_indent = '\t\t'
+    fout.write(current_indent+ '<mode name="physical">\n')
+    
+
+    #end
+    fout.write(current_indent + '</mode>\n')
+
+generate_picasso_model()
+
+printdbg(get_width(['thie', 'tga', '[5:2]', '', 'end;\n']))
+
+generate_picasso_pb()
