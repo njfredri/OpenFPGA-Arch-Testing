@@ -11,8 +11,13 @@ def shouldISkip_bcuzClk(line) -> bool:
     return False
 
 def get_name(line) -> str:
+    temp_line = line
     valid = ''
-    for token in line:
+    printdbg('input line is: ' + str(line))
+    # tokens = line.split(' ')
+    if isinstance(line, str):
+        temp_line = line.split(' ')
+    for token in temp_line:
         if token=='input' or token=='output':
             continue
         elif token=='':
@@ -28,6 +33,30 @@ def get_name(line) -> str:
     filtered_string = ''.join(c for c in valid if (c.isalnum() and c!=';' and c!='\n'))
     printdbg('filtered valid name is ' + filtered_string)
     return filtered_string
+
+def extract_ports(lines):
+    portnames = []
+    direction = []
+    widths = []
+    for line in lines:
+        if 'clk' in line or 'clock' in line:
+            name = get_name(line)
+            portnames.append(name)
+            direction.append('clock')
+            widths.append(get_width(line))
+        elif 'input' in line:
+            name = get_name(line)
+            print('returned name is ' + name)
+            portnames.append(name)
+            direction.append('input')
+            widths.append(get_width(line))
+        elif 'output' in line:
+            name = get_name(line)
+            portnames.append(name)
+            direction.append('output')
+            widths.append(get_width(line))
+        
+    return list(zip(portnames, direction, widths))
 
 def get_width(line) -> str:
     for word in line:
@@ -172,20 +201,28 @@ def generate_slice_ports(lines, line_begin='\t\t\t\t'):
             ports.append(port_string)
     return ports
 
+def generate_ports_string(ports_info, line_begin='\t'):
+    complete_string = ''
+    for port in ports_info:
+        print(port)
+        complete_string += (line_begin + '<' + port[1] + ' name="' + port[0] + '" num_pins="' + port[2] + '"/>\n')
+    return complete_string
+
 def generate_picaso_pb():
     fin = open("synth_picasso.reference", "r")
     fout = open("picaso_pb_type.xml", "w+")
     fout.write('<pb_type name="picaso">\n')
     lines = fin.readlines()
-    ports = generate_pbtype_top_ports(lines)
-    for port in ports:
-        fout.write(port)
-    write_physical_mode(fout, lines)
+    ports_info = extract_ports(lines)
+    ports_string = generate_ports_string(ports_info, line_begin='\t')
+    fout.write(ports_string)
+    write_physical_mode(fout, ports_info)
+
     fout.write('</pb_type>')
     fout.close()
     fin.close()
 
-def write_physical_mode(fout, lines):
+def write_physical_mode(fout, ports):
     current_indent = '\t\t'
     fout.write(current_indent + '<mode name="physical">\n')
     
@@ -193,17 +230,18 @@ def write_physical_mode(fout, lines):
     fout.write(current_indent + '<pb_type name="picaso_slice" num_pb="1">\n')
     
     current_indent = '\t\t\t\t'
-    slice_ports = generate_pbtype_top_ports(lines, line_begin='\t\t\t\t') #generate_slice_ports(lines)
-    for port in slice_ports:
-        fout.write(port)
+    slice_ports_str = generate_ports_string(ports, '\t\t\t')
+    fout.write(slice_ports_str)
     
     current_indent = '\t\t\t'
     fout.write(current_indent + '</pb_type>\n')
     current_indent = '\t\t'
     fout.write(current_indent + '</mode>\n')
 
+def write_base_pb_type(fout, lines):
+    current_indent='\t\t\t\t'
+    
+
+
 generate_picaso_model()
-
-printdbg(get_width(['thie', 'tga', '[5:2]', '', 'end;\n']))
-
 generate_picaso_pb()
