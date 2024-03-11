@@ -1,0 +1,50 @@
+<circuit_model type="hard_logic" name="picaso" prefix="picaso" is_default="true" verilog_netlist="$\{OPENFPGA_PATH\}/temp_mve/MV_Engine_For_SPAR/BitSerial-v1/MV-Engine/lib/work/yosys/picaso_synth.v">
+	<design_technology type="cmos"/>
+	<input_buffer exist="true" circuit_model_name="INVTX1"/>
+	<output_buffer exist="true" circuit_model_name="INVTX1"/>
+	<port type="input" prefix="addrA" size="1"/>
+	<port type="input" prefix="addrB" size="1"/>
+	<port type="input" prefix="aluConf" size="1"/>
+	<port type="input" prefix="aluConfLoad" size="1"/>
+	<port type="input" prefix="aluEn" size="1"/>
+	<port type="input" prefix="aluMbitLoad" size="1"/>
+	<port type="input" prefix="aluMbitReset" size="1"/>
+	<port type="input" prefix="aluReset" size="1"/>
+	<port type="clock" prefix="clk" size="1"/>
+	<port type="output" prefix="dbgaluoutstreams" size="1"/>
+	<port type="output" prefix="dbgaluxstreams" size="1"/>
+	<port type="output" prefix="dbgaluystreams" size="1"/>
+	<port type="clock" prefix="dbgclkenable" size="1"/>
+	<port type="output" prefix="dbgnetcaptureOut" size="1"/>
+	<port type="output" prefix="dbgnetlocalIn" size="1"/>
+	<port type="output" prefix="dbgopmuxopnX" size="1"/>
+	<port type="output" prefix="dbgopmuxopnY" size="1"/>
+	<port type="output" prefix="dbgrfaddra" size="1"/>
+	<port type="output" prefix="dbgrfaddrb" size="1"/>
+	<port type="output" prefix="dbgrfdia" size="1"/>
+	<port type="output" prefix="dbgrfdib" size="1"/>
+	<port type="output" prefix="dbgrfdoa" size="1"/>
+	<port type="output" prefix="dbgrfdob" size="1"/>
+	<port type="output" prefix="dbgrfwea" size="1"/>
+	<port type="output" prefix="dbgrfweb" size="1"/>
+	<port type="input" prefix="eastIn" size="1"/>
+	<port type="input" prefix="extDataIn" size="1"/>
+	<port type="output" prefix="extDataOut" size="1"/>
+	<port type="input" prefix="extDataSave" size="1"/>
+	<port type="input" prefix="netCaptureEn" size="1"/>
+	<port type="input" prefix="netConfLoad" size="1"/>
+	<port type="input" prefix="netLevel" size="1"/>
+	<port type="input" prefix="opmuxConf" size="1"/>
+	<port type="input" prefix="opmuxConfLoad" size="1"/>
+	<port type="input" prefix="opmuxEn" size="1"/>
+	<port type="input" prefix="ptrIncr" size="1"/>
+	<port type="input" prefix="ptrLoad" size="1"/>
+	<port type="input" prefix="saveAluOut" size="1"/>
+	<port type="output" prefix="selActive" size="1"/>
+	<port type="input" prefix="selCol" size="1"/>
+	<port type="input" prefix="selEn" size="1"/>
+	<port type="input" prefix="selMode" size="1"/>
+	<port type="input" prefix="selOp" size="1"/>
+	<port type="input" prefix="selRow" size="1"/>
+	<port type="output" prefix="westOut" size="1"/>
+</circuit_model>

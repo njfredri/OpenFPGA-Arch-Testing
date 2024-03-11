@@ -206,6 +206,7 @@
         <perimeter type="io" priority="100"/>
         <corners type="EMPTY" priority="101"/>
         <fill type="clb" priority="10"/>
+        <row type="picaso" startx="3" starty="1" priority="110"/>
       </fixed_layout>
     </layout>
     <device>

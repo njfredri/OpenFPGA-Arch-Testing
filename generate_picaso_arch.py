@@ -1,6 +1,6 @@
 DEBUG = True
 def printdbg(str, end='\n'):
-    if DEBUG:
+    if DEBUG==True:
         print(str, end=end)
 
 def shouldISkip_bcuzClk(line) -> bool:
@@ -50,7 +50,7 @@ def extract_ports(lines):
             name = get_name(line)
             if(name in portnames):
                 continue
-            print('returned name is ' + name)
+            printdbg('returned name is ' + name)
             portnames.append(name)
             direction.append('input')
             widths.append(get_width(line))
@@ -293,8 +293,30 @@ def generate_picaso_tile():
     fout.close()
     fin.close()
 
+def generate_circtui_model_ports_string(ports, linebegin='\t'):
+    s=''
+    for port in ports:
+        s += linebegin + '<port type="' + port[1] + '" prefix="' + port[0] + '" size="' + port[2] + '"/>\n'
+    return s
+
+def generate_picaso_openfpga_circuit():
+    fin = open("synth_picasso.reference", "r")
+    fout = open("picaso_circuit_model.xml", "w+")
+    fout.write('<circuit_model type="hard_logic" name="picaso" prefix="picaso" is_default="true" verilog_netlist="$\{OPENFPGA_PATH\}/temp_mve/MV_Engine_For_SPAR/BitSerial-v1/MV-Engine/lib/work/yosys/picaso_synth.v">\n')
+    fout.write('\t<design_technology type="cmos"/>\n')
+    fout.write('\t<input_buffer exist="true" circuit_model_name="INVTX1"/>\n')
+    fout.write('\t<output_buffer exist="true" circuit_model_name="INVTX1"/>\n')
+    #define the ports of the circuit
+    lines = fin.readlines()
+    ports_info = extract_ports(lines)
+    fout.write(generate_circtui_model_ports_string(ports_info))
+
+    fout.write('</circuit_model>\n')
+
 DEBUG=False
 generate_picaso_model()
-DEBUG=True
+DEBUG=False
 generate_picaso_pb()
 generate_picaso_tile()
+DEBUG=True
+generate_picaso_openfpga_circuit()
