@@ -43,6 +43,8 @@
           </model>
           <model name="picaso">
             <input_ports>
+              <port name="clk" is_clock="1"/>
+              <port name="dbgclkenable"/>
               <port name="addrA"/>
               <port name="addrB"/>
               <port name="aluConf"/>
@@ -132,6 +134,60 @@
             <fc in_type="frac" in_val="0.2" out_type="frac" out_val="0.10"/>
             <pinlocations pattern="spread"/>
         </sub_tile>
+    </tile>
+    <tile name="picaso">
+      <sub_tile name="picaso" capacity="1">
+        <equivalent_sites>
+          <site pb_type="picaso_block" pin_mapping="direct"/>
+        </equivalent_sites>
+        <input name="addrA" num_pins="1"/>
+        <input name="addrB" num_pins="1"/>
+        <input name="aluConf" num_pins="1"/>
+        <input name="aluConfLoad" num_pins="1"/>
+        <input name="aluEn" num_pins="1"/>
+        <input name="aluMbitLoad" num_pins="1"/>
+        <input name="aluMbitReset" num_pins="1"/>
+        <input name="aluReset" num_pins="1"/>
+        <clock name="clk" num_pins="1"/>
+        <output name="dbgaluoutstreams" num_pins="1"/>
+        <output name="dbgaluxstreams" num_pins="1"/>
+        <output name="dbgaluystreams" num_pins="1"/>
+        <input name="dbgclkenable" num_pins="1"/>
+        <output name="dbgnetcaptureOut" num_pins="1"/>
+        <output name="dbgnetlocalIn" num_pins="1"/>
+        <output name="dbgopmuxopnX" num_pins="1"/>
+        <output name="dbgopmuxopnY" num_pins="1"/>
+        <output name="dbgrfaddra" num_pins="1"/>
+        <output name="dbgrfaddrb" num_pins="1"/>
+        <output name="dbgrfdia" num_pins="1"/>
+        <output name="dbgrfdib" num_pins="1"/>
+        <output name="dbgrfdoa" num_pins="1"/>
+        <output name="dbgrfdob" num_pins="1"/>
+        <output name="dbgrfwea" num_pins="1"/>
+        <output name="dbgrfweb" num_pins="1"/>
+        <input name="eastIn" num_pins="1"/>
+        <input name="extDataIn" num_pins="1"/>
+        <output name="extDataOut" num_pins="1"/>
+        <input name="extDataSave" num_pins="1"/>
+        <input name="netCaptureEn" num_pins="1"/>
+        <input name="netConfLoad" num_pins="1"/>
+        <input name="netLevel" num_pins="1"/>
+        <input name="opmuxConf" num_pins="1"/>
+        <input name="opmuxConfLoad" num_pins="1"/>
+        <input name="opmuxEn" num_pins="1"/>
+        <input name="ptrIncr" num_pins="1"/>
+        <input name="ptrLoad" num_pins="1"/>
+        <input name="saveAluOut" num_pins="1"/>
+        <output name="selActive" num_pins="1"/>
+        <input name="selCol" num_pins="1"/>
+        <input name="selEn" num_pins="1"/>
+        <input name="selMode" num_pins="1"/>
+        <input name="selOp" num_pins="1"/>
+        <input name="selRow" num_pins="1"/>
+        <output name="westOut" num_pins="1"/>
+        <fc in_type="frac" in_val="0.2" out_type="frac" out_val="0.10"/>
+        <pinlocations pattern="perimeter"/>
+      </sub_tile>
     </tile>
     </tiles>
     <!-- ODIN II specific config ends -->
@@ -422,7 +478,7 @@
         <output name="dbgaluoutstreams" num_pins="1"/>
         <output name="dbgaluxstreams" num_pins="1"/>
         <output name="dbgaluystreams" num_pins="1"/>
-        <clock name="dbgclkenable" num_pins="1"/>
+        <input name="dbgclkenable" num_pins="1"/>
         <output name="dbgnetcaptureOut" num_pins="1"/>
         <output name="dbgnetlocalIn" num_pins="1"/>
         <output name="dbgopmuxopnX" num_pins="1"/>
@@ -469,7 +525,7 @@
               <output name="dbgaluoutstreams" num_pins="1"/>
               <output name="dbgaluxstreams" num_pins="1"/>
               <output name="dbgaluystreams" num_pins="1"/>
-              <clock name="dbgclkenable" num_pins="1"/>
+              <input name="dbgclkenable" num_pins="1"/>
               <output name="dbgnetcaptureOut" num_pins="1"/>
               <output name="dbgnetlocalIn" num_pins="1"/>
               <output name="dbgopmuxopnX" num_pins="1"/>

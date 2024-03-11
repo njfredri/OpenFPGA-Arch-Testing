@@ -267,7 +267,34 @@ def write_physical_mode(fout, ports):
     current_indent = '\t\t'
     fout.write(current_indent + '</mode>\n')
 
+def gen_equivalent_sites(line_start='\t\t'):
+    s = line_start
+    s += '<equivalent_sites>\n'
+    s += line_start + '\t<site pb_type="picaso_block" pin_mapping="direct"/>\n'
+    s += line_start + '</equivalent_sites>\n'
+    return s
+
+def generate_picaso_tile():
+    fin = open("synth_picasso.reference", "r")
+    fout = open("picaso_tile.xml", "w+")
+    fout.write('<tile name="picaso">\n\t<sub_tile name="picaso" capacity="1">\n')
+    fout.write(gen_equivalent_sites())
+
+    lines = fin.readlines()
+    ports_info = extract_ports(lines)
+    ports_string = generate_ports_string(ports_info, line_begin='\t\t')
+    fout.write(ports_string)
+    # write_physical_mode(fout, ports_info)
+
+    fout.write('\t\t<fc in_type="frac" in_val="0.2" out_type="frac" out_val="0.10"/>\n')
+    fout.write('\t\t<pinlocations pattern="perimeter"/>\n')
+
+    fout.write('\t</sub_tile>\n</tile>')
+    fout.close()
+    fin.close()
+
 DEBUG=False
 generate_picaso_model()
 DEBUG=True
 generate_picaso_pb()
+generate_picaso_tile()
